@@ -1,0 +1,30 @@
+import random
+
+# Requirement: Weapon Database
+weapons = {
+    "AKM": {"damage": 47, "range": 100, "ammo": "7.62mm"},
+    "M416": {"damage": 41, "range": 150, "ammo": "5.56mm"},
+    "AWM": {"damage": 105, "range": 500, "ammo": ".300 Magnum"}
+}
+
+# Requirement: Player Structure
+player_one = {
+    "hp": 100,
+    "position": (random.randint(0, 100), random.randint(0, 100)),
+    "inventory": [],
+    "active_weapon": "AKM"
+}
+
+def calculate_hit(attacker, defender):
+    weapon = attacker['active_weapon']
+    damage = weapons[weapon]['damage']
+    
+    # Simple RNG for 'Headshot' or 'Body'
+    multiplier = 2.0 if random.random() > 0.8 else 1.0
+    final_damage = damage * multiplier
+    
+    defender['hp'] -= final_damage
+    print(f"Hit! Dealt {final_damage} damage. Defender HP: {max(0, defender['hp'])}")
+
+# Test the requirement
+calculate_hit(player_one, {"hp": 100})
